@@ -36,7 +36,7 @@ const ViewAllPackages = () => {
     useEffect(() => {
         const fetchPackageData = async () => {
             await axios
-                .get(`https://travello-r7hg.onrender.com`)
+                .get(`https://travello-r7hg.onrender.com/viewAllPackages`)
                 .then((res) => {
                     console.log(res.data);
                     if(res.data)
