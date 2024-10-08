@@ -20,7 +20,7 @@ const MainPage = () => {
     useEffect(() => {
         const fetchDetails = async () => {
             await axios
-                .get(`https://travello-r7hg.onrender.com`)
+                .get(`https://travello-r7hg.onrender.com/topPackages`)
                 .then((res) => {
                     console.log(res.data);
                     if(res.data && res.data.topPackages.length > 0)
