@@ -27,7 +27,7 @@ const SignUp = () => {
             return;
         }
         await axios
-            .post(`http://localhost:5000/register` , Inputs)
+            .post(`https://travello-r7hg.onrender.com/register` , Inputs)
             .then((res) => {
                 console.log(res.data);
                 if(res.data.message)
