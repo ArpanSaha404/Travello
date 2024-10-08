@@ -28,7 +28,7 @@ const LogIn = () => {
             return;
         }
         await axios
-            .post(`http://localhost:5000/login` , Inputs)
+            .post(`https://travello-r7hg.onrender.com` , Inputs)
             .then((res) => {
                 console.log(res.data);
                 if(res.data.message)
