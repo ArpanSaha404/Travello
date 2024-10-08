@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(Cors());
 
 
-const port = 5000 || process.env.port;
+const port = 5000 || process.env.PORT;
 
 app.get('/test' , (req , res) => {
     console.log(req);

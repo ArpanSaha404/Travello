@@ -19,6 +19,17 @@ const Navbar = () => {
     const userName = useSelector((state) => state.auth.userName);
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
+    const handelNavigate = (path) => {
+        if(!isLoggedIn)
+        {
+            alert(`Please Login or SignUp First...`);
+        }
+        else
+        {
+            navigate(path);
+        }
+    };
+
   return (
     <div className='flex bg-transparent pt-3'>
         <div className='flex w-3/6 items-center justify-start'>
@@ -26,7 +37,7 @@ const Navbar = () => {
             
         </div>
         <div className='flex w-3/6 items-stretch justify-evenly'>
-            <Link className='rounded-md text-white text-xl font-sans font-bold py-1 px-2 hover:underline hover:text-indigo-400 transition duration-300 ease-in-out active:scale-150' to='/viewAllPackages'>View All Packages</Link>
+            <button className='rounded-md text-white text-xl font-sans font-bold py-1 px-2 hover:underline hover:text-indigo-400 transition duration-300 ease-in-out active:scale-150' onClick={() => handelNavigate('/viewAllPackages')}>View All Packages</button>
             {isLoggedIn === false ? (<>
                 <Link className='bg-indigo-800 rounded-md text-white text-xl font-sans font-bold py-1 px-2 hover:shadow-md hover:shadow-indigo-300 hover:bg-indigo-600 transition duration-300 ease-in-out active:scale-75' to='/logIn'>Log In</Link>
                 <Link className='bg-indigo-800 rounded-md text-white text-xl font-sans font-bold py-1 px-2 hover:shadow-md hover:shadow-indigo-300 hover:bg-indigo-600 transition duration-300 ease-in-out active:scale-75' to='/signUp'>Sign Up</Link>

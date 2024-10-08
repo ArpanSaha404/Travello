@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CircleChevronRight, CircleChevronLeft, MoveRight } from 'lucide-react';
 import RatingStars from './RatingStars';
 import Navbar from '../Navbar/Navbar';
-import './Loading.css';
+import Loading from '../Loading/Loading';
 import axios from 'axios';
 
 const MainPage = () => {
@@ -13,7 +13,7 @@ const MainPage = () => {
         pics: [],
         rating : 0,
     }]});
-    const [Loading , setLoading] = useState(true);
+    const [IsLoading , setIsLoading] = useState(true);
     const [CurrImgIdx , setCurrImgIdx] = useState(0);
     const [Fade , setFade] = useState(true);
 
@@ -28,7 +28,7 @@ const MainPage = () => {
                         setDetails((prev) => ({
                             ...prev , topPackages : res.data.topPackages,
                         }));
-                        setLoading(false);
+                        setIsLoading(false);
                     }
                 })
                 .catch((err) => {
@@ -52,17 +52,7 @@ const MainPage = () => {
         return () => clearInterval(interval);
     });
 
-    if(Loading)
-    {
-        return (
-            <div className='loading-container'>
-                <div className='loading-spinner'>
-                    <div className='spinner  h-2/6 w-2/6'></div>
-                    <p>Loading...</p>
-                </div>
-            </div>
-        );
-    };
+    if(IsLoading)       return (<Loading />);
 
     const changeImgNext = () => {
         setFade(false);

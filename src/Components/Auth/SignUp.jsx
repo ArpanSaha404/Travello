@@ -57,9 +57,16 @@ const SignUp = () => {
             });
     };
 
+    const outerDivClick = () => {
+        navigate('/');;
+    };
+    const innerDivClick = (e) => {
+        e.stopPropagation();
+    };
+
   return (
-    <div className='h-screen w-screen flex items-center justify-center bg-indigo-900'>
-        <div className='w-3/6 h-3/6 flex items-center justify-center bg-white'>
+    <div className='h-screen w-screen flex items-center justify-center bg-indigo-900' onClick={outerDivClick}>
+        <div className='w-3/6 h-3/6 flex items-center justify-center bg-white' onClick={innerDivClick}>
             <div className='h-full w-1/2 flex justify-center items-center bg-indigo-950 clip-signup-trapezium'>
                 <h1 className='font-sans font-bold text-7xl text-white pr-12'>Sign UP</h1>
             </div>
@@ -70,7 +77,13 @@ const SignUp = () => {
                 <input name='password' type='password' placeholder='Enter your password' className='p-2 shadow-lg border-black border-solid rounded my-2 w-5/6 h-1/6' value={Inputs.password} onChange={change} />
                 <div className='w-full flex items-center justify-evenly pt-2'>
                     <button className='bg-indigo-950 rounded-md text-white text-xl font-sans font-bold py-1 px-2 hover:shadow-md hover:shadow-indigo-500 hover:bg-indigo-900 transition duration-300 ease-in-out active:scale-75' onClick={submit}>Sign Up</button>
-                    <Link className='font-sans font-bold underline py-1 px-2 pt-4 hover:text-indigo-500 transition duration-300 ease-in-out active:scale-75' to='/logIn'>Log In</Link>
+                    <div className='flex flex-col justify-end items-center'>
+                        <div>Already have an account?</div>
+                        <div>
+                            <Link className='font-sans font-bold underline py-1 px-2 pt-4 hover:text-indigo-500 transition duration-300 ease-in-out active:scale-75' to='/logIn'>Log In</Link>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
