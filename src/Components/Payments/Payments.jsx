@@ -27,7 +27,7 @@ const Payments = () => {
     useEffect(() => {
         const fetchBookingData = async () => {
             await axios
-                .get(`http://localhost:5000/payments/${bookingID}`)
+                .get(`https://travello-r7hg.onrender.com/payments/${bookingID}`)
                 .then((res) => {
                 console.log(res.data);
                 if(res.data)
