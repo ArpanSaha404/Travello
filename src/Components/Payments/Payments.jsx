@@ -51,7 +51,7 @@ const Payments = () => {
 
     const handlePayment = async () => {
         await axios
-            .put(`http://localhost:5000/confirmPayments/${BookingData.bookingDetails.bookingId}`)
+            .put(`https://travello-r7hg.onrender.com/confirmPayments/${BookingData.bookingDetails.bookingId}`)
             .then((res) => {
                 console.log(res.data);
                 if(res.data)
