@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle , faIndianRupeeSign , faArrowRight , faMinus , faPlus , faStar } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
@@ -35,9 +35,7 @@ const BookPackage = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {packageId} = useParams();
-    const [searchParams] = useSearchParams();
-    const userEmail = searchParams.get('email');
+    const {packageId , bookingId} = useParams();
 
     useEffect(() => {
         const fetchPackageData = async () => {
@@ -45,9 +43,8 @@ const BookPackage = () => {
             if(email)
             {
                 await axios
-                    .get(`https://travello-r7hg.onrender.com/${packageId}` , {
-                        params : { email : userEmail }
-                    })
+                    .get(`https://travello-r7hg.onrender.com/bookingDetails/${packageId}/${bookingId}`)
+                    // .get(`https://travello-r7hg.onrender.com/bookPackage/${packageId}?email=${email}`)
                     .then((res) => {
                     console.log(res.data);
                     if(res.data)
@@ -64,7 +61,7 @@ const BookPackage = () => {
             }
         };
         fetchPackageData();
-    },[packageId , email]);
+    },[packageId , email , bookingId]);
 
     if(!isLoggedIn)     return (<LoginError />);
     if(IsLoading)       return (<Loading />);
@@ -170,14 +167,17 @@ const BookPackage = () => {
         {
             setBookPackageErr('');
             await axios
-                .put(`https://travello-r7hg.onrender.com/${PkgDetBookDet.insertedData.bookingId}` , updatedDetails)
+                .put(`https://travello-r7hg.onrender.com/bookedPackage/${PkgDetBookDet.insertedData.bookingId}` , updatedDetails)
                 .then((res) => {
-                    console.log(res.data)
+                    console.log(res.data);
+                    if(res.data.newDetails.bookingId)
+                    {
+                        navigate(`/payments/${res.data.newDetails.bookingId}`);
+                    }
                 })
                 .catch((err) => {
                     console.log(err);
                 });
-                navigate(`/payments/${PkgDetBookDet.insertedData.bookingId}`);
         }
     };
 

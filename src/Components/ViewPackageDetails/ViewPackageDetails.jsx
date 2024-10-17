@@ -23,6 +23,7 @@ const ViewPackageDetails = () => {
     const [BestTimeIdx , setBestTimeIdx] = useState(0);
 
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+    const email = useSelector((state) => state.auth.email);
     const navigate = useNavigate();
     const {packageId} = useParams();
 
@@ -54,8 +55,21 @@ const ViewPackageDetails = () => {
         setTDSstate(option);
     };
 
-    const toBookPackage = () => {
-        navigate(`/bookPackage/${packageId}`)
+    const toBookPackage = async () => {
+        await axios
+            .post(`https://travello-r7hg.onrender.com/insertBookPackageData/${packageId}` , { userEmail : email })
+            .then((res) => {
+                console.log(res.data);
+                if(res.data.insertedData)
+                {
+                    navigate(`/bookingDetails/${packageId}/${res.data.insertedData.bookingId}`);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
+        // navigate(`/bookPackage/${packageId}`);
     };
 
     const picsArr = PackageData.packageData.pics;
