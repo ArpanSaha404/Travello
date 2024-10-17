@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle , faIndianRupeeSign , faArrowRight , faMinus , faPlus , faStar } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
@@ -36,13 +36,18 @@ const BookPackage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {packageId} = useParams();
+    const [searchParams] = useSearchParams();
+    const userEmail = searchParams.get('email');
 
     useEffect(() => {
         const fetchPackageData = async () => {
+            console.log(email);
             if(email)
             {
                 await axios
-                    .get(`https://travello-r7hg.onrender.com/${packageId}?email=${email}`)
+                    .get(`https://travello-r7hg.onrender.com/${packageId}` , {
+                        params : { email : userEmail }
+                    })
                     .then((res) => {
                     console.log(res.data);
                     if(res.data)
